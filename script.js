@@ -1,8 +1,7 @@
-const dev = false;
 let path = '/recipes/recipes/';///recipes/recipes/
 import { Recipe } from '/recipes/js/parse.js';///recipes/js/parse.js
 
-const recipes = ['Stuffing', 'Pecan Bars', 'Brownies', 'Lemon Poppyseed Muffins', 'Ginger Cookies', 'Lemon Pound Cake', 'Crumb Cake', 'Pumpkin Muffins'];
+
 
 /* Clear Query Paramaters */
 
@@ -64,20 +63,17 @@ function openRecipe(name) {
   const request = new XMLHttpRequest();
   request.onload = function() {
     if (this.readyState === 4 && this.status === 200) {
-      //clear modal
-      const recipe = document.getElementById('recipe');
-      while (recipe.firstChild) {
-        recipe.removeChild(recipe.firstChild);
-      }
       //add title
-      const h2 = document.createElement('h2');
-      h2.innerText = name;
-      recipe.append(h2);
+      modal.getElementsByTagName('h2')[0].innerText = name;
       //parse
       const parsed = Recipe(request.response);
       //add metadata
+      const table = modal.getElementsByTagName('table')[0];
+      while (table.firstChild) {
+        table.removeChild(table.firstChild);
+      }
       if (parsed.metadata) {
-        const table = document.createElement('table');
+        table.style.display = 'block';
         for (const metadata in parsed.metadata) {
           const tr = document.createElement('tr');
           const td1 = document.createElement('td');
@@ -97,18 +93,23 @@ function openRecipe(name) {
           tr.append(td2);
           table.append(tr);
         }
-        recipe.append(table);
+      } else {
+        table.style.display = 'none';
+      }
+      const ingedientCookware = modal.getElementsByClassName('ingedientCookware')[0];
+      const ul1 = modal.getElementsByTagName('ul')[0];
+      while (ul1.firstChild) {
+        ul1.removeChild(ul1.firstChild);
+      }
+      const ul2 = modal.getElementsByTagName('ul')[1];
+      while (ul2.firstChild) {
+        ul2.removeChild(ul2.firstChild);
       }
       if (parsed.ingredients || parsed.cookware) {
-        const ingedientCookware = document.createElement('div');
-        ingedientCookware.classList.add('ingedientCookware');
+        ingedientCookware.style.display = 'flex';
         //add ingredients
         if (parsed.ingredients) {
-          const fieldset = document.createElement('fieldset');
-          const legend = document.createElement('legend');
-          legend.innerText = 'Ingredients';
-          fieldset.append(legend);
-          const ul = document.createElement('ul');
+          ul1.style.display = 'block';
           for (const ingredient of parsed.ingredients) {
             const li = document.createElement('li');
             const input = document.createElement('input');
@@ -122,18 +123,14 @@ function openRecipe(name) {
               li.append(createTextSpan(' '));
             }
             li.append(createTextSpan(ingredient.name));
-            ul.append(li);
+            ul1.append(li);
           }
-          fieldset.append(ul);
-          ingedientCookware.append(fieldset);
+        } else {
+          ul1.style.display = 'none';
         }
         //add cookware
         if (parsed.cookware) {
-          const fieldset = document.createElement('fieldset');
-          const legend = document.createElement('legend');
-          legend.innerText = 'Cookware';
-          fieldset.append(legend);
-          const ul = document.createElement('ul');
+          ul2.style.display = 'block';
           for (const cookware of parsed.cookware) {
             const li = document.createElement('li');
             if (cookware.quantity) {
@@ -144,19 +141,21 @@ function openRecipe(name) {
               li.append(createTextSpan(' '));
             }
             li.append(createTextSpan(cookware.name));
-            ul.append(li);
+            ul2.append(li);
           }
-          fieldset.append(ul);
-          ingedientCookware.append(fieldset);
+        } else {
+          ul2.style.display = 'none';
         }
-        recipe.append(ingedientCookware);
+      } else {
+        ingedientCookware.style.display = 'none';
       }
       //add steps
+      const ol = modal.getElementsByTagName('ol')[0];
+      while (ol.firstChild) {
+        ol.removeChild(ol.firstChild);
+      }
       if (parsed.steps) {
-        const h3 = document.createElement('h3');
-        h3.innerText = 'Steps';
-        recipe.append(h3);
-        const ol = document.createElement('ol');
+        ol.style.display = 'block';
         for (const step of parsed.steps) {
           const li = document.createElement('li');
           for (const subStep of step) {
@@ -193,10 +192,12 @@ function openRecipe(name) {
           }
           ol.append(li);
         }
-        recipe.append(ol);
+      } else {
+        ol.style.display = 'none';
       }
       //show modal
       modal.style.display = 'block';
+      document.getElementById('recipe').scrollTop = 0;
       disableScroll();
       modal.classList.remove('out');
     } else if (this.readyState === 4 && this.status !== 200) {
@@ -220,21 +221,12 @@ document.body.addEventListener('keydown', function (e) {//enable enter while tab
   }
 });
 
+const recipes = document.getElementsByClassName('item');
 for (let i = 0; i < recipes.length; i++) {
-  const item = document.createElement('div');
-  item.setAttribute('tabindex', 0);
-  item.classList.add('item');
-  const content = document.createElement('div');
-  content.classList.add('content');
-  item.append(content);
-  const h3 = document.createElement('h3');
-  h3.innerText = recipes[i];
-  content.append(h3);
-  document.getElementsByTagName('main')[0].append(item);
-  resizeMasonryItem(item);
-  item.addEventListener('click', function() {
-    window.history.replaceState('', document.title, window.location.toString() + '?item=' + recipes[i]);
-    openRecipe(recipes[i]);
+  resizeMasonryItem(recipes[i]);
+  recipes[i].addEventListener('click', function() {
+    window.history.replaceState('', document.title, window.location.toString() + '?item=' + recipes[i].innerText);
+    openRecipe(recipes[i].innerText);
   });
 }
 
@@ -258,6 +250,10 @@ window.addEventListener('resize', function() {
 /* Query paramaters */
 
 const params = new URLSearchParams(window.location.search);
-if (params && params.has('item') && recipes.includes(params.get('item'))) {
-  openRecipe(params.get('item'));
+if (params && params.has('item')) {
+  for (let i = 0; i < recipes.length; i++) {
+    if (recipes[i].innerText === params.get('item')) {
+      openRecipe(params.get('item'));
+    }
+  }
 }
