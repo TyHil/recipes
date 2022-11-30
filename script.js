@@ -1,7 +1,7 @@
 const dev = false;
-let path = '';
+let path = '/recipes/';
 if (dev) {
-  path = '/recipes/';
+  path = '';
 }
 
 import { Recipe } from '/recipes/js/parse.js';
