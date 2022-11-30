@@ -3,8 +3,7 @@ let path = '/recipes/';
 if (dev) {
   path = '';
 }
-
-import { Recipe } from '/recipes/js/parse.js';
+import { Recipe } from '/recipes/js/parse.js';///recipes/js/parse.js
 
 const recipes = ['Stuffing', 'Pecan Bars', 'Brownies', 'Lemon Poppyseed Muffins', 'Ginger Cookies', 'Lemon Pound Cake', 'Crumb Cake', 'Pumpkin Muffins'];
 
