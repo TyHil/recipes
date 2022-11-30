@@ -1,8 +1,5 @@
 const dev = false;
-let path = '/recipes/';
-if (dev) {
-  path = '';
-}
+let path = '/recipes/recipes/';///recipes/recipes/
 import { Recipe } from '/recipes/js/parse.js';///recipes/js/parse.js
 
 const recipes = ['Stuffing', 'Pecan Bars', 'Brownies', 'Lemon Poppyseed Muffins', 'Ginger Cookies', 'Lemon Pound Cake', 'Crumb Cake', 'Pumpkin Muffins'];
@@ -114,6 +111,9 @@ function openRecipe(name) {
           const ul = document.createElement('ul');
           for (const ingredient of parsed.ingredients) {
             const li = document.createElement('li');
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            li.append(input);
             if (ingredient.quantity) {
               const span = document.createElement('span');
               span.classList.add('amount');
@@ -206,12 +206,23 @@ function openRecipe(name) {
   request.onerror = function () {
     Error('Network Error');
   };
-  request.open('GET', path + 'recipes/'  + name + '.cook');
+  request.open('GET', path + name + '.cook');
   request.send();
 }
 
+
+
+/* Masonry */
+
+document.body.addEventListener('keydown', function (e) {//enable enter while tabbing over spans
+  if ((e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') && document.activeElement !== null && document.activeElement.classList.contains('item')) {
+    document.activeElement.click();
+  }
+});
+
 for (let i = 0; i < recipes.length; i++) {
   const item = document.createElement('div');
+  item.setAttribute('tabindex', 0);
   item.classList.add('item');
   const content = document.createElement('div');
   content.classList.add('content');
@@ -226,10 +237,6 @@ for (let i = 0; i < recipes.length; i++) {
     openRecipe(recipes[i]);
   });
 }
-
-
-
-/* Masonry */
 
 function resizeMasonryItem(item) {
   const masonry = document.getElementsByTagName('main')[0];
