@@ -10,6 +10,20 @@ function clearQuery() {
 }
 
 
+
+/* Favicon */
+
+const faviconEl = document.querySelector('link[rel="icon"]');
+window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (event) {
+  if (event.matches) {
+    faviconEl.href = '/recipes/tabicon-light.png';
+  } else {
+    faviconEl.href = '/recipes/tabicon.png';
+  }
+});
+
+
+
 /* Modal */
 
 function disableScroll() {
