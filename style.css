@@ -4,7 +4,10 @@ html, body {
   padding: 0;
 }
 
-/*prefers-reduced-motion*/
+
+
+/* prefers-reduced-motion */
+
 @media screen and (prefers-reduced-motion: reduce), (update: slow) {
   * {
     animation-duration: 0.001ms !important;
@@ -13,7 +16,10 @@ html, body {
   }
 }
 
-/*Dark Mode*/
+
+
+/* Dark Mode */
+
 :root { /*Gradient color average: #128A74 10 midpoints first choice*/
   --light0: #E9F4F2; /*#fff*/
   --light1: #CCD7D5; /*#dfdfdf*/
@@ -58,7 +64,10 @@ textarea::-webkit-scrollbar-track {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
-/*Light Mode*/
+
+
+/* Light Mode */
+
 @media (prefers-color-scheme: light) {
   :root {
     --light0: #020D0B; /*#000*/
@@ -96,7 +105,10 @@ textarea::-webkit-scrollbar-track {
   }
 }
 
-/*Scrollbar*/
+
+
+/* Scrollbar */
+
 body {
   scrollbar-width: thin;
 }
@@ -114,7 +126,10 @@ body {
   border-radius: 0.25rem;
 }
 
-/*Links*/
+
+
+/* Links */
+
 a {
   color: #8475f9;
 }
@@ -122,7 +137,10 @@ a:visited {
   color: #9140db;
 }
 
-/*Body*/
+
+
+/* Body */
+
 body {
   font-family: Tahoma, sans-serif;
   background-color: var(--dark0);
@@ -133,7 +151,10 @@ body.disableScroll {
   overflow: hidden;
 }
 
-/*Header*/
+
+
+/* Header */
+
 header {
   display: flex;
   flex-direction: column;
@@ -157,7 +178,10 @@ header {
   text-align: center;
 }
 
-/*Main*/
+
+
+/* Main */
+
 main {
   padding: 1rem;
   display: grid;
@@ -183,7 +207,10 @@ main {
   text-align: center;
 }
 
-/*Modal*/
+
+
+/* Modal */
+
 #modal {
   display: none;
   position: fixed;
