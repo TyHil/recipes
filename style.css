@@ -154,6 +154,15 @@ body.disableScroll {
   height: 100%;
   overflow: hidden;
 }
+button {
+  font-family: Tahoma, sans-serif;
+  color: var(--light0);
+  border: none;
+  background: transparent;
+  box-sizing: content-box;
+  padding: 0;
+  font-size: 1rem;
+}
 
 
 
