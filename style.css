@@ -67,6 +67,10 @@ textarea::-webkit-scrollbar-track {
 #modal {
   background-color: rgba(0, 0, 0, 0.5);
 }
+.svg {
+  -webkit-filter: var(--lightSVG);
+          filter: var(--lightSVG);
+}
 
 
 
@@ -106,6 +110,10 @@ textarea::-webkit-scrollbar-track {
   }
   #modal {
     background-color: rgba(255, 255, 255, 0.2);
+  }
+  .svg {
+    -webkit-filter: var(--darkSVG);
+            filter: var(--darkSVG);
   }
 }
 
@@ -360,7 +368,7 @@ ol li {
 }
 #clearFilter {
   display: none;
-  width: 3rem;
+  width: 1rem;
   justify-content: center;
   align-items: center;
   opacity: 0;
