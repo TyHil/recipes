@@ -3,6 +3,22 @@ import { Recipe } from '/recipes/js/parse.js';// /recipes/js/parse.js
 
 
 
+/* Transition Management */
+
+//Stop new clicks when still animating
+let transitioning = 0;
+
+//On transition end or immediatly if transitions disabled
+function onTransitionEnd(element, callback) {
+  if (document.readyState !== "complete") {
+    callback();
+  } else {
+    element.addEventListener("transitionend", callback, { once: true });
+  }
+}
+
+
+
 /* Clear Query Paramaters */
 
 function clearQuery() {
@@ -261,3 +277,118 @@ if (params && params.has('item')) {
     }
   }
 }
+
+
+
+/* Items */
+
+class Item {
+  constructor(item) {
+    this.item = item;
+  }
+  hide() {
+    this.item.style.display = "none";
+  }
+  show() {
+    this.item.style.display = "flex";
+  }
+}
+
+const itemElements = document.getElementsByClassName("item");
+const items = [];
+for (let i = 0; i < itemElements.length; i++) {
+  items.push(new Item(itemElements[i]));
+}
+
+
+
+/* Filter */
+
+class Filter {
+  constructor(filter) {
+    this.filter = filter;
+  }
+  hide() {
+    if (!this.filter.classList.contains("remove")) {
+      transitioning = 1;
+      this.filter.style.maxWidth = this.filter.getBoundingClientRect().width + "px";
+      setTimeout(() => {
+        this.filter.classList.add("remove");
+        this.filter.style.maxWidth = 0;
+        onTransitionEnd(this.filter, () => {
+          this.filter.style.display = "none";
+          transitioning = 0;
+        });
+      });
+    }
+  }
+  show() {
+    if (this.filter.classList.contains("remove")) {
+      transitioning = 1;
+      this.filter.style.display = "inline-block";
+      setTimeout(() => {
+        this.filter.style.maxWidth = "200px";
+        this.filter.classList.remove("remove");
+        onTransitionEnd(this.filter, () => {
+          this.filter.style.maxWidth = "";
+          transitioning = 0;
+        });
+      });
+    }
+  }
+}
+
+const filterButtons = document.getElementsByClassName("filterButton");
+const filters = {};
+for (let i = 0; i < filterButtons.length; i++) {
+  filters[filterButtons[i].id] = new Filter(filterButtons[i]);
+  filterButtons[i].addEventListener("click", () => {
+    if (!transitioning) {
+      openFilter(filterButtons[i]);
+    }
+  });
+}
+
+function openFilter(filter) {
+  if (!filter.classList.contains("filtered")) { //Not already clicked
+    filter.classList.add("filtered");
+    for (let i = 0; i < filterButtons.length; i++) {
+      if (filterButtons[i].classList.contains("filtered") || filterButtons[i].classList.contains(filter.id)) { //Show subfilters others
+        filters[filterButtons[i].id].show();
+      }
+    }
+    for (let i = 0; i < items.length; i++) { //Hide rectangles
+      if (!items[i].item.classList.contains(filter.id)) {
+        items[i].hide();
+      }
+    }
+    const clearFilter = document.getElementById("clearFilter"); //Show clear filter button
+    clearFilter.style.display = "flex";
+    setTimeout(() => {
+      clearFilter.classList.add("show");
+    });
+  }
+}
+
+//Close filters
+document.getElementById("clearFilter").addEventListener("click", function () {
+  if (!transitioning) {
+    clearQuery();
+    this.classList.remove("show"); //Hide self
+    this.style.display = "none";
+
+    for (let i = 0; i < filterButtons.length; i++) { //Show all buttons except subfilters
+      if (!filterButtons[i].classList.contains("subfilter")) {
+        filters[filterButtons[i].id].show();
+      } else {
+        filters[filterButtons[i].id].hide();
+      }
+    }
+    for (let i = 0; i < items.length; i++) { //Show all rectangles
+      items[i].show();
+    }
+    while (document.getElementsByClassName("filtered")[0]) {
+      document.getElementsByClassName("filtered")[0].classList.remove("filtered");
+    }
+  }
+});
