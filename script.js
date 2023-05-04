@@ -30,7 +30,7 @@ function clearQuery() {
 /* Favicon */
 
 const faviconEl = document.querySelector('link[rel="icon"]');
-window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function (event) {
+window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(event) {
   if (event.matches) {
     faviconEl.href = '/recipes/tabicon-light.png';
   } else {
@@ -55,20 +55,20 @@ function enableScroll() {
 const modal = document.getElementById('modal');
 function hideModal() {
   modal.classList.add('out');
-  modal.addEventListener('transitionend', function () {
+  modal.addEventListener('transitionend', function() {
     modal.style.display = 'none';
     enableScroll();
   }, { once: true });
   clearQuery();
 }
 
-document.addEventListener('click', function (e) {
+document.addEventListener('click', function(e) {
   if (modal.contains(e.target) && !modal.childNodes[1].contains(e.target)) {
     hideModal();
   }
 });
 
-document.addEventListener('keydown', function (e) {
+document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     hideModal();
   }
@@ -81,11 +81,11 @@ function createTextSpan(text) {
 }
 
 function isValidUrl(urlString) {
-  try { 
-    return Boolean(new URL(urlString)); 
+  try {
+    return Boolean(new URL(urlString));
   }
-  catch(e) { 
-    return false; 
+  catch (e) {
+    return false;
   }
 }
 
@@ -371,7 +371,7 @@ function openFilter(filter) {
 }
 
 //Close filters
-document.getElementById("clearFilter").addEventListener("click", function () {
+document.getElementById("clearFilter").addEventListener("click", function() {
   if (!transitioning) {
     clearQuery();
     this.classList.remove("show"); //Hide self

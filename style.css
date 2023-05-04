@@ -1,5 +1,6 @@
 html, body {
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
 }
@@ -162,6 +163,7 @@ body {
 }
 body.disableScroll {
   height: 100%;
+  width: auto;
   overflow: hidden;
 }
 button {
@@ -197,7 +199,7 @@ header {
   display: inline-block;
   padding: 0.8rem 1rem 0.6rem 1rem;
   border-radius: 1.5rem;
-  transition: background-color 0.2s;
+  transition: background-color 200ms;
   text-align: center;
 }
 
@@ -354,7 +356,7 @@ ol li {
   margin-right: 0.5rem;
 }
 .ripple.filter {
-  transition: background-color 0.2s, background-image 0.2s, padding 0.2s, opacity 0.2s, max-width 0.2s, margin-right 0.2s;
+  transition: background-color 200ms, background-image 200ms, padding 200ms, opacity 200ms, max-width 200ms, margin-right 200ms;
 }
 .filtered.filter {
   background-color: var(--dark2);
@@ -374,7 +376,7 @@ ol li {
   justify-content: center;
   align-items: center;
   opacity: 0;
-  transition: background-color 0.2s, opacity 0.2s;
+  transition: background-color 200ms, opacity 200ms;
 }
 #clearFilter img {
   cursor: pointer;
