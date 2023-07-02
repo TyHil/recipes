@@ -1,3 +1,5 @@
+import { commentRegex, tokenRegex } from "/recipes/js/regex.js";///recipes/js/regex.js
+import { text, ingredient, cookware, timer, } from "/recipes/js/token.js";///recipes/js/token.js
 const parseQuantity = (quantity, fallback) => {
     if (quantity.includes("/")) {
         const [a, b] = quantity.split("/", 2);
@@ -13,7 +15,7 @@ const parseQuantity = (quantity, fallback) => {
         return quantity.trim();
     }
 };
-const parse = (source) => {
+export const parse = (source) => {
     const steps = [];
     const metadata = {};
     const sourceWithoutComments = source.replace(commentRegex, "");
@@ -74,7 +76,7 @@ const parse = (source) => {
     }
     return { steps, metadata };
 };
-const Recipe = (recipe) => {
+export const Recipe = (recipe) => {
     const { steps, metadata } = parse(recipe);
     const ingredients = [];
     const cookware = [];

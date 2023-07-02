@@ -1,4 +1,5 @@
 let path = '/recipes/recipes/';// /recipes/recipes/
+import { Recipe } from '/recipes/js/parse.js';// /recipes/js/parse.js
 
 
 

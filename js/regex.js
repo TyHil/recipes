@@ -10,17 +10,17 @@ const cookwareSingle = /#(?<cookwareName>[^@#~ ]+)/;
 // multiple word cookware: #non-stick pan{}, ...
 const cookwareMulti = /#(?<cookwareName_>[^@#~]+){(?<cookwareQuantity>[^}]*)}/;
 // timer: ~{1%hour}, ~boil eggs{8%minutes} ...
-const timerRegex = /~(?<timerName>[^@#~]*?){(?<timerQuantity>[^}]*)}/;
+const timer = /~(?<timerName>[^@#~]*?){(?<timerQuantity>[^}]*)}/;
 // metadata: >> key : value
 const metadataRegex = /^>>\s*(?<metaKey>.*?):\s*(?<metaValue>.*)$/;
 const lineComment = /--.*/;
 const blockComment = /\[- .+ -]/;
-const tokenRegex = or([
+export const tokenRegex = or([
     metadataRegex,
     ingredientMulti,
     ingredientSingle,
     cookwareMulti,
     cookwareSingle,
-    timerRegex,
+    timer,
 ], "g");
-const commentRegex = or([lineComment, blockComment]);
+export const commentRegex = or([lineComment, blockComment]);
