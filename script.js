@@ -3,10 +3,18 @@ import { Recipe } from '/recipes/js/parse.js';// /recipes/js/parse.js
 
 
 
+/* Tab Icon */
+
+if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+  document.querySelector('link[rel="icon"]').href = 'recipes/tabicon-light.png';
+}
+
+
+
 /* Transition Management */
 
 //Stop new clicks when still animating
-let transitioning = 0;
+let transitioning = false;
 
 //On transition end or immediatly if transitions disabled
 function onTransitionEnd(element, callback) {
@@ -17,6 +25,14 @@ function onTransitionEnd(element, callback) {
   }
 }
 
+//Allow transitions on load
+window.addEventListener("load", function () {
+  const elements = document.querySelectorAll(".transitionDisabled");
+  for (let i = 0; i < elements.length; i++) {
+    elements[i].classList.remove("transitionDisabled");
+  }
+});
+
 
 
 /* Clear Query Paramaters */
@@ -24,19 +40,6 @@ function onTransitionEnd(element, callback) {
 function clearQuery() {
   window.history.replaceState('', document.title, window.location.toString().substring(0, window.location.toString().indexOf('?')));
 }
-
-
-
-/* Favicon */
-
-const faviconEl = document.querySelector('link[rel="icon"]');
-window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', function(event) {
-  if (event.matches) {
-    faviconEl.href = '/recipes/tabicon-light.png';
-  } else {
-    faviconEl.href = '/recipes/tabicon.png';
-  }
-});
 
 
 
@@ -52,27 +55,44 @@ function enableScroll() {
   document.body.classList.remove('disableScroll');
 }
 
-const modal = document.getElementById('modal');
-function hideModal() {
-  modal.classList.add('out');
-  modal.addEventListener('transitionend', function() {
-    modal.style.display = 'none';
-    enableScroll();
-  }, { once: true });
-  clearQuery();
+function openModal(modalBg) {
+  modalBg.style.display = 'block';
+  modalBg.getElementsByClassName('modal')[0].scrollTop = 0;
+  disableScroll();
+  modalBg.classList.remove('out');
 }
 
-document.addEventListener('click', function(e) {
-  if (modal.contains(e.target) && !modal.childNodes[1].contains(e.target)) {
-    hideModal();
+function closeModal(modalBg) {
+  if (!modalBg.classList.contains('out')) {
+    modalBg.classList.add('out');
+    modalBg.addEventListener('transitionend', function() {
+      modalBg.style.display = 'none';
+      enableScroll();
+    }, { once: true });
   }
-});
+}
+
+const modalBgs = document.getElementsByClassName('modalBg');
+for (let i = 0; i < modalBgs.length; i++) {
+  modalBgs[i].addEventListener('click', function(e) {
+    if (!modalBgs[i].getElementsByClassName('modal')[0].contains(e.target)) {
+      closeModal(modalBgs[i]);
+    }
+  });
+}
 
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
-    hideModal();
+    const modalBgs = document.getElementsByClassName('modalBg');
+    for (let i = 0; i < modalBgs.length; i++) {
+      closeModal(modalBgs[i]);
+    }
   }
 });
+
+/*Extra*/
+
+const modal = document.getElementsByClassName('modalBg')[0];
 
 function createTextSpan(text) {
   const span = document.createElement('span');
@@ -146,17 +166,22 @@ function openRecipe(name) {
         ul1.style.display = 'block';
         for (const ingredient of parsed.ingredients) {
           const li = document.createElement('li');
+          li.classList.add('smallInputBox');
           const input = document.createElement('input');
           input.type = 'checkbox';
+          input.id = ingredient.name.replaceAll(' ', '');
           li.append(input);
+          const label = document.createElement('label');
+          label.htmlFor = ingredient.name.replaceAll(' ', '');
           if (ingredient.quantity) {
             const span = document.createElement('span');
             span.classList.add('amount');
             span.innerText = ingredient.quantity + ' ' + ingredient.units;
-            li.append(span);
-            li.append(createTextSpan(' '));
+            label.append(span);
+            label.append(createTextSpan(' '));
           }
-          li.append(createTextSpan(ingredient.name));
+          label.append(createTextSpan(ingredient.name));
+          li.append(label);
           ul1.append(li);
         }
       } else {
@@ -230,10 +255,7 @@ function openRecipe(name) {
       ol.style.display = 'none';
     }
     //show modal
-    modal.style.display = 'block';
-    document.getElementById('recipe').scrollTop = 0;
-    disableScroll();
-    modal.classList.remove('out');
+    openModal(modal);
   });
 }
 
@@ -310,28 +332,28 @@ class Filter {
   }
   hide() {
     if (!this.filter.classList.contains("remove")) {
-      transitioning = 1;
+      transitioning = true;
       this.filter.style.maxWidth = this.filter.getBoundingClientRect().width + "px";
       setTimeout(() => {
         this.filter.classList.add("remove");
         this.filter.style.maxWidth = 0;
         onTransitionEnd(this.filter, () => {
           this.filter.style.display = "none";
-          transitioning = 0;
+          transitioning = false;
         });
       });
     }
   }
   show() {
     if (this.filter.classList.contains("remove")) {
-      transitioning = 1;
+      transitioning = true;
       this.filter.style.display = "inline-block";
       setTimeout(() => {
         this.filter.style.maxWidth = "200px";
         this.filter.classList.remove("remove");
         onTransitionEnd(this.filter, () => {
           this.filter.style.maxWidth = "";
-          transitioning = 0;
+          transitioning = false;
         });
       });
     }

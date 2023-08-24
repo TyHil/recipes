@@ -32,8 +32,8 @@
 </head>
 
 <body>
-  <div id="modal" class="out">
-    <div id="recipe">
+  <div class="modalBg out">
+    <div class="modal">
       <h2></h2>
       <table></table>
       <div class="ingedientCookware">
@@ -55,132 +55,132 @@
     <a id="byLine" href="/">Tyler Gordon Hill</a>
   </header>
   <div id="projects">
-    <button class="filter transitionDisabled filterButton ripple dessert entree side appetizer" id="type" title="Filter by type">Type</button>
-      <button class="filter transitionDisabled filterButton ripple type subfilter remove lemon" id="dessert" title="Filter by dessert">Dessert</button>
-        <button class="filter transitionDisabled filterButton ripple dessert subfilter remove" id="lemon" title="Filter by lemon">Lemon</button>
-      <button class="filter transitionDisabled filterButton ripple type subfilter remove" id="entree" title="Filter by entree">Entree</button>
-      <button class="filter transitionDisabled filterButton ripple type subfilter remove" id="side" title="Filter by side">Side</button>
-      <button class="filter transitionDisabled filterButton ripple type subfilter remove" id="appetizer" title="Filter by appetizer">Appetizer</button>
-    <button class="filter transitionDisabled filterButton ripple easy medium hard" id="difficulty" title="Filter by difficulty">Difficulty</button>
-    <button class="filter transitionDisabled filterButton ripple difficulty subfilter remove" id="easy" title="Filter by easy">Easy</button>
-    <button class="filter transitionDisabled filterButton ripple difficulty subfilter remove" id="medium" title="Filter by medium">Medium</button>
-    <button class="filter transitionDisabled filterButton ripple difficulty subfilter remove" id="hard" title="Filter by hard">Hard</button>
-    <button id="clearFilter" class="filter" title="Clear filter">
+    <button class="large filter transitionDisabled filterButton dessert entree side appetizer" id="type" title="Filter by type">Type</button>
+      <button class="large filter transitionDisabled filterButton type subfilter remove lemon" id="dessert" title="Filter by dessert">Dessert</button>
+        <button class="large filter transitionDisabled filterButton dessert subfilter remove" id="lemon" title="Filter by lemon">Lemon</button>
+      <button class="large filter transitionDisabled filterButton type subfilter remove" id="entree" title="Filter by entree">Entree</button>
+      <button class="large filter transitionDisabled filterButton type subfilter remove" id="side" title="Filter by side">Side</button>
+      <button class="large filter transitionDisabled filterButton type subfilter remove" id="appetizer" title="Filter by appetizer">Appetizer</button>
+    <button class="large filter transitionDisabled filterButton easy medium hard" id="difficulty" title="Filter by difficulty">Difficulty</button>
+    <button class="large filter transitionDisabled filterButton difficulty subfilter remove" id="easy" title="Filter by easy">Easy</button>
+    <button class="large filter transitionDisabled filterButton difficulty subfilter remove" id="medium" title="Filter by medium">Medium</button>
+    <button class="large filter transitionDisabled filterButton difficulty subfilter remove" id="hard" title="Filter by hard">Hard</button>
+    <button id="clearFilter" class="large filter" title="Clear filter">
       <img class="svg" src="images/X.svg" alt="X icon" />
     </button>
   </div>
   <main>
-    <button class="item type difficulty easy">
+    <button class="large item type difficulty easy">
       <div class="content">
         <h3>French Press Coffee</h3>
       </div>
     </button>
-    <button class="item type difficulty side hard">
+    <button class="large item type difficulty side hard">
       <div class="content">
         <h3>Stuffing</h3>
       </div>
     </button>
-    <button class="item type difficulty dessert hard">
+    <button class="large item type difficulty dessert hard">
       <div class="content">
         <h3>Pecan Bars</h3>
       </div>
     </button>
-    <button class="item type difficulty dessert medium">
+    <button class="large item type difficulty dessert medium">
       <div class="content">
         <h3>Brownies</h3>
       </div>
     </button>
-    <button class="item type difficulty dessert lemon medium">
+    <button class="large item type difficulty dessert lemon medium">
       <div class="content">
         <h3>Lemon Poppyseed Muffins</h3>
       </div>
     </button>
-    <button class="item type difficulty dessert easy">
+    <button class="large item type difficulty dessert easy">
       <div class="content">
         <h3>Ginger Cookies</h3>
       </div>
     </button>
-    <button class="item type difficulty dessert lemon medium">
+    <button class="large item type difficulty dessert lemon medium">
       <div class="content">
         <h3>Lemon Pound Cake</h3>
       </div>
     </button>
-    <button class="item type difficulty dessert hard">
+    <button class="large item type difficulty dessert hard">
       <div class="content">
         <h3>Crumb Cake</h3>
       </div>
     </button>
-    <button class="item type difficulty dessert medium">
+    <button class="large item type difficulty dessert medium">
       <div class="content">
         <h3>Pumpkin Muffins</h3>
       </div>
     </button>
-    <button class="item type difficulty entree easy">
+    <button class="large item type difficulty entree easy">
       <div class="content">
         <h3>Tomato Soup</h3>
       </div>
     </button>
-    <button class="item type difficulty entree easy">
+    <button class="large item type difficulty entree easy">
       <div class="content">
         <h3>Chicken Breasts</h3>
       </div>
     </button>
-    <button class="item type difficulty dessert hard">
+    <button class="large item type difficulty dessert hard">
       <div class="content">
         <h3>Strawberry Bundt Cake</h3>
       </div>
     </button>
-    <button class="item type difficulty dessert lemon hard">
+    <button class="large item type difficulty dessert lemon hard">
       <div class="content">
         <h3>Lemon Bundt Cake</h3>
       </div>
     </button>
-    <button class="item type difficulty side medium">
+    <button class="large item type difficulty side medium">
       <div class="content">
         <h3>Roasted Potatoes</h3>
       </div>
     </button>
-    <button class="item type difficulty side hard">
+    <button class="large item type difficulty side hard">
       <div class="content">
         <h3>Green Bean Casserole</h3>
       </div>
     </button>
-    <button class="item type difficulty dessert hard">
+    <button class="large item type difficulty dessert hard">
       <div class="content">
         <h3>Dirty Chai Earthquake Cookies</h3>
       </div>
     </button>
-    <button class="item type difficulty entree medium">
+    <button class="large item type difficulty entree medium">
       <div class="content">
         <h3>Creamy Braised White Beans</h3>
       </div>
     </button>
-    <button class="item type difficulty entree easy">
+    <button class="large item type difficulty entree easy">
       <div class="content">
         <h3>Sheet-Pan Sausage With Peppers and Tomatoes</h3>
       </div>
     </button>
-    <button class="item type difficulty appetizer medium">
+    <button class="large item type difficulty appetizer medium">
       <div class="content">
         <h3>Buffalo Chicken Dip</h3>
       </div>
     </button>
-    <button class="item type difficulty dessert easy">
+    <button class="large item type difficulty dessert easy">
       <div class="content">
         <h3>Chocolate Chip Cookies</h3>
       </div>
     </button>
-    <button class="item type difficulty side easy">
+    <button class="large item type difficulty side easy">
       <div class="content">
         <h3>Oven Bacon</h3>
       </div>
     </button>
-    <button class="item type difficulty entree easy">
+    <button class="large item type difficulty entree easy">
       <div class="content">
         <h3>Omelette</h3>
       </div>
     </button>
-    <button class="item type difficulty entree medium">
+    <button class="large item type difficulty entree medium">
       <div class="content">
         <h3>Sesame Chicken</h3>
       </div>
