@@ -131,6 +131,17 @@ a.button {
   text-decoration: none;
   cursor: pointer;
 }
+/*Circle*/
+button.large.circle, a.button.large.circle {
+  width: 3rem;
+  height: 3rem;
+  justify-content: center;
+  align-items: center;
+}
+button.large.circle img, a.button.large.circle img {
+  width: 1.2rem;
+  height: 1.2rem;
+}
 
 /*Text, number, and textarea*/
 
@@ -388,16 +399,8 @@ button.item {
 }
 #clearFilter {
   display: none;
-  width: 3rem;
-  height: 3rem;
-  justify-content: center;
-  align-items: center;
   opacity: 0;
   transition: background-color 200ms, opacity 200ms;
-}
-#clearFilter img {
-  width: 1.2rem;
-  height: 1.2rem;
 }
 #clearFilter.show {
   opacity: 1;
