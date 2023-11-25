@@ -70,6 +70,8 @@ function closeModal(modalBg) {
       enableScroll();
     }, { once: true });
   }
+  /*Extra*/
+  clearQuery();
 }
 
 const modalBgs = document.getElementsByClassName('modalBg');
