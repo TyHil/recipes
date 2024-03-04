@@ -1,219 +1,272 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" prefix="og: http://ogp.me/ns#">
+  <head>
+    <!-- HTML Meta Tags -->
+    <title>Recipes</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Catalog of personal recipes." />
+    <meta name="canonical" href="https://tylergordonhill.com/recipes" />
+    <meta name="theme-color" content="#128A74" />
 
-<head>
-  <!-- HTML Meta Tags -->
-  <title>Recipes</title>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Catalog of personal recipes." />
-  <meta name="canonical" href="https://tylergordonhill.com/recipes" />
-  <meta name="theme-color" content="#128A74" />
-  
-  <!-- Open Graph Meta Tags -->
-  <meta property="og:title" content="Recipes" />
-  <meta property="og:description" content="Catalog of personal recipes."/>
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://tylergordonhill.com/recipes" />
-  <meta property="og:image" content="https://tylergordonhill.com/recipes/linkpreview.png" />
-  <meta property="og:image:type" content="image/png">
-  <meta property="og:image:alt" content="Screenshot of the website displaying the list of recipes. ">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Recipes" />
+    <meta property="og:description" content="Catalog of personal recipes." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://tylergordonhill.com/recipes" />
+    <meta property="og:image" content="https://tylergordonhill.com/recipes/linkpreview.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta
+      property="og:image:alt"
+      content="Screenshot of the website displaying the list of recipes. "
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
 
-  <!-- Twitter Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:domain" content="tylergordonhill.com" />
-  
-  <!-- Link Tags -->
-  <link rel="icon" href="/recipes/tabicon.png" />
-  <link href="https://tylergordonhill.com/global.css" rel="stylesheet" type="text/css" />
-  <link href="recipes/style.css" rel="stylesheet" type="text/css" />
-</head>
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:domain" content="tylergordonhill.com" />
 
-<body>
-  <div class="modalBg out">
-    <div class="modal">
-      <h2></h2>
-      <table></table>
-      <div class="ingedientCookware">
-        <fieldset>
-          <legend>Ingredients</legend>
-          <ul></ul>
-        </fieldset>
-        <fieldset>
-          <legend>Cookware</legend>
-          <ul></ul>
-        </fieldset>
+    <!-- Link Tags -->
+    <link rel="icon" href="/recipes/tabicon.png" />
+    <link href="https://tylergordonhill.com/global.css" rel="stylesheet" type="text/css" />
+    <link href="recipes/style.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <div class="modalBg out">
+      <div class="modal">
+        <h2></h2>
+        <table></table>
+        <div class="ingedientCookware">
+          <fieldset>
+            <legend>Ingredients</legend>
+            <ul></ul>
+          </fieldset>
+          <fieldset>
+            <legend>Cookware</legend>
+            <ul></ul>
+          </fieldset>
+        </div>
+        <h3>Steps</h3>
+        <ol></ol>
       </div>
-      <h3>Steps</h3>
-      <ol></ol>
     </div>
-  </div>
 
-  <header>
-    <h2 id="title">Recipes</h2>
-    <a id="byLine" href="/">Tyler Gordon Hill</a>
-  </header>
+    <header>
+      <h2 id="title">Recipes</h2>
+      <a id="byLine" href="/">Tyler Gordon Hill</a>
+    </header>
 
-  <div id="projects">
-    <button class="large filter transitionDisabled filterButton dessert entree side appetizer" id="type" title="Filter by type">Type</button>
-      <button class="large filter transitionDisabled filterButton type subfilter remove lemon" id="dessert" title="Filter by dessert">Dessert</button>
-        <button class="large filter transitionDisabled filterButton dessert subfilter remove" id="lemon" title="Filter by lemon">Lemon</button>
-      <button class="large filter transitionDisabled filterButton type subfilter remove" id="entree" title="Filter by entree">Entree</button>
-      <button class="large filter transitionDisabled filterButton type subfilter remove" id="side" title="Filter by side">Side</button>
-      <button class="large filter transitionDisabled filterButton type subfilter remove" id="appetizer" title="Filter by appetizer">Appetizer</button>
-    <button class="large filter transitionDisabled filterButton easy medium hard" id="difficulty" title="Filter by difficulty">Difficulty</button>
-    <button class="large filter transitionDisabled filterButton difficulty subfilter remove" id="easy" title="Filter by easy">Easy</button>
-    <button class="large filter transitionDisabled filterButton difficulty subfilter remove" id="medium" title="Filter by medium">Medium</button>
-    <button class="large filter transitionDisabled filterButton difficulty subfilter remove" id="hard" title="Filter by hard">Hard</button>
-    <button id="clearFilter" class="large circle filter" title="Clear filter">
-      <img class="svg small" src="images/X.svg" alt="X icon" />
-    </button>
-  </div>
-
-  <main>
-    <button class="large item type difficulty easy">
-      <div class="content">
-        <h3>French Press Coffee</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty side hard">
-      <div class="content">
-        <h3>Stuffing</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty dessert hard">
-      <div class="content">
-        <h3>Pecan Bars</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty dessert medium">
-      <div class="content">
-        <h3>Brownies</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty dessert lemon medium">
-      <div class="content">
-        <h3>Lemon Poppyseed Muffins</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty dessert easy">
-      <div class="content">
-        <h3>Ginger Cookies</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty dessert lemon medium">
-      <div class="content">
-        <h3>Lemon Pound Cake</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty dessert hard">
-      <div class="content">
-        <h3>Crumb Cake</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty dessert medium">
-      <div class="content">
-        <h3>Pumpkin Muffins</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty entree easy">
-      <div class="content">
-        <h3>Tomato Soup</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty entree easy">
-      <div class="content">
-        <h3>Chicken Breasts</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty dessert hard">
-      <div class="content">
-        <h3>Strawberry Bundt Cake</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty dessert lemon hard">
-      <div class="content">
-        <h3>Lemon Bundt Cake</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty side medium">
-      <div class="content">
-        <h3>Roasted Potatoes</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty side hard">
-      <div class="content">
-        <h3>Green Bean Casserole</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty dessert hard">
-      <div class="content">
-        <h3>Dirty Chai Earthquake Cookies</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty entree medium">
-      <div class="content">
-        <h3>Creamy Braised White Beans</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty entree easy">
-      <div class="content">
-        <h3>Sheet-Pan Sausage With Peppers and Tomatoes</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty appetizer medium">
-      <div class="content">
-        <h3>Buffalo Chicken Dip</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty dessert easy">
-      <div class="content">
-        <h3>Chocolate Chip Cookies</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty side easy">
-      <div class="content">
-        <h3>Oven Bacon</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty entree easy">
-      <div class="content">
-        <h3>Omelette</h3>
-      </div>
-    </button>
-    <button class="large item type difficulty entree medium">
-      <div class="content">
-        <h3>Sesame Chicken</h3>
-      </div>
-    </button>
-  </main>
-
-  <footer>
-    <div>
-      <p><strong>Contact and Social</strong></p>
-      <a href="mailto:tylergordonhill@gmail.com" target="_blank" rel="noopener">Email</a>
-      <a href="http://www.linkedin.com/in/tylergordonhill" target="_blank" rel="noopener">LinkedIn</a>
-      <a href="https://github.com/TyHil" target="_blank" rel="noopener">GitHub</a>
-      <a href="https://replit.com/@TylerGHill" target="_blank" rel="noopener">Replit</a>
-      <a href="https://thangs.com/TylerHill" target="_blank" rel="noopener">Thangs</a>
+    <div id="projects">
+      <button
+        class="large filter transitionDisabled filterButton dessert entree side appetizer"
+        id="type"
+        title="Filter by type"
+        >Type</button
+      >
+      <button
+        class="large filter transitionDisabled filterButton type subfilter remove lemon"
+        id="dessert"
+        title="Filter by dessert"
+        >Dessert</button
+      >
+      <button
+        class="large filter transitionDisabled filterButton dessert subfilter remove"
+        id="lemon"
+        title="Filter by lemon"
+        >Lemon</button
+      >
+      <button
+        class="large filter transitionDisabled filterButton type subfilter remove"
+        id="entree"
+        title="Filter by entree"
+        >Entree</button
+      >
+      <button
+        class="large filter transitionDisabled filterButton type subfilter remove"
+        id="side"
+        title="Filter by side"
+        >Side</button
+      >
+      <button
+        class="large filter transitionDisabled filterButton type subfilter remove"
+        id="appetizer"
+        title="Filter by appetizer"
+        >Appetizer</button
+      >
+      <button
+        class="large filter transitionDisabled filterButton easy medium hard"
+        id="difficulty"
+        title="Filter by difficulty"
+        >Difficulty</button
+      >
+      <button
+        class="large filter transitionDisabled filterButton difficulty subfilter remove"
+        id="easy"
+        title="Filter by easy"
+        >Easy</button
+      >
+      <button
+        class="large filter transitionDisabled filterButton difficulty subfilter remove"
+        id="medium"
+        title="Filter by medium"
+        >Medium</button
+      >
+      <button
+        class="large filter transitionDisabled filterButton difficulty subfilter remove"
+        id="hard"
+        title="Filter by hard"
+        >Hard</button
+      >
+      <button id="clearFilter" class="large circle filter" title="Clear filter">
+        <img class="svg small" src="images/X.svg" alt="X icon" />
+      </button>
     </div>
-    <div>
-      <p><strong>Subsites</strong></p>
-      <a href="/set-operations-for-spotify">Set Operations for Spotify</a>
-      <a href="/typewriter-formatting">Typewriter Formatting</a>
-      <a href="/cah-maker">Cards Against Humanity Card Maker</a>
-      <a href="/response-display">Response Display</a>
-      <a href="/password-generator">Password Generator</a>
-      <a href="/recipes">Recipes</a>
-    </div>
-  </footer>
 
-  <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics-compat.js"></script>
-  <script src="https://tylergordonhill.com/global.js"></script>
-  <script type="module" src="recipes/script.js"></script>
-</body>
+    <main>
+      <button class="large item type difficulty easy">
+        <div class="content">
+          <h3>French Press Coffee</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty side hard">
+        <div class="content">
+          <h3>Stuffing</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty dessert hard">
+        <div class="content">
+          <h3>Pecan Bars</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty dessert medium">
+        <div class="content">
+          <h3>Brownies</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty dessert lemon medium">
+        <div class="content">
+          <h3>Lemon Poppyseed Muffins</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty dessert easy">
+        <div class="content">
+          <h3>Ginger Cookies</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty dessert lemon medium">
+        <div class="content">
+          <h3>Lemon Pound Cake</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty dessert hard">
+        <div class="content">
+          <h3>Crumb Cake</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty dessert medium">
+        <div class="content">
+          <h3>Pumpkin Muffins</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty entree easy">
+        <div class="content">
+          <h3>Tomato Soup</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty entree easy">
+        <div class="content">
+          <h3>Chicken Breasts</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty dessert hard">
+        <div class="content">
+          <h3>Strawberry Bundt Cake</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty dessert lemon hard">
+        <div class="content">
+          <h3>Lemon Bundt Cake</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty side medium">
+        <div class="content">
+          <h3>Roasted Potatoes</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty side hard">
+        <div class="content">
+          <h3>Green Bean Casserole</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty dessert hard">
+        <div class="content">
+          <h3>Dirty Chai Earthquake Cookies</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty entree medium">
+        <div class="content">
+          <h3>Creamy Braised White Beans</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty entree easy">
+        <div class="content">
+          <h3>Sheet-Pan Sausage With Peppers and Tomatoes</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty appetizer medium">
+        <div class="content">
+          <h3>Buffalo Chicken Dip</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty dessert easy">
+        <div class="content">
+          <h3>Chocolate Chip Cookies</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty side easy">
+        <div class="content">
+          <h3>Oven Bacon</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty entree easy">
+        <div class="content">
+          <h3>Omelette</h3>
+        </div>
+      </button>
+      <button class="large item type difficulty entree medium">
+        <div class="content">
+          <h3>Sesame Chicken</h3>
+        </div>
+      </button>
+    </main>
 
+    <footer>
+      <div>
+        <p><strong>Contact and Social</strong></p>
+        <a href="mailto:tylergordonhill@gmail.com" target="_blank" rel="noopener">Email</a>
+        <a href="http://www.linkedin.com/in/tylergordonhill" target="_blank" rel="noopener"
+          >LinkedIn</a
+        >
+        <a href="https://github.com/TyHil" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://replit.com/@TylerGHill" target="_blank" rel="noopener">Replit</a>
+        <a href="https://thangs.com/TylerHill" target="_blank" rel="noopener">Thangs</a>
+      </div>
+      <div>
+        <p><strong>Subsites</strong></p>
+        <a href="/set-operations-for-spotify">Set Operations for Spotify</a>
+        <a href="/typewriter-formatting">Typewriter Formatting</a>
+        <a href="/cah-maker">Cards Against Humanity Card Maker</a>
+        <a href="/response-display">Response Display</a>
+        <a href="/password-generator">Password Generator</a>
+        <a href="/recipes">Recipes</a>
+      </div>
+    </footer>
+
+    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.1.0/firebase-analytics-compat.js"></script>
+    <script src="https://tylergordonhill.com/global.js"></script>
+    <script type="module" src="recipes/script.js"></script>
+  </body>
 </html>
