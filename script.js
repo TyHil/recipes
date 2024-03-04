@@ -1,15 +1,11 @@
-let path = '/recipes/recipes/';// /recipes/recipes/
-import { Recipe } from '/recipes/js/parse.js';// /recipes/js/parse.js
-
-
+let path = '/recipes/recipes/'; // /recipes/recipes/
+import { Recipe } from '/recipes/js/parse.js'; // /recipes/js/parse.js
 
 /* Tab Icon */
 
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
   document.querySelector('link[rel="icon"]').href = 'recipes/tabicon-light.png';
 }
-
-
 
 /* Transition Management */
 
@@ -18,30 +14,30 @@ let transitioning = false;
 
 //On transition end or immediatly if transitions disabled
 function onTransitionEnd(element, callback) {
-  if (document.readyState !== "complete") {
+  if (document.readyState !== 'complete') {
     callback();
   } else {
-    element.addEventListener("transitionend", callback, { once: true });
+    element.addEventListener('transitionend', callback, { once: true });
   }
 }
 
 //Allow transitions on load
-window.addEventListener("load", function () {
-  const elements = document.querySelectorAll(".transitionDisabled");
+window.addEventListener('load', function () {
+  const elements = document.querySelectorAll('.transitionDisabled');
   for (let i = 0; i < elements.length; i++) {
-    elements[i].classList.remove("transitionDisabled");
+    elements[i].classList.remove('transitionDisabled');
   }
 });
-
-
 
 /* Clear Query Paramaters */
 
 function clearQuery() {
-  window.history.replaceState('', document.title, window.location.toString().substring(0, window.location.toString().indexOf('?')));
+  window.history.replaceState(
+    '',
+    document.title,
+    window.location.toString().substring(0, window.location.toString().indexOf('?'))
+  );
 }
-
-
 
 /* Modal */
 
@@ -65,10 +61,14 @@ function openModal(modalBg) {
 function closeModal(modalBg) {
   if (!modalBg.classList.contains('out')) {
     modalBg.classList.add('out');
-    modalBg.addEventListener('transitionend', function() {
-      modalBg.style.display = 'none';
-      enableScroll();
-    }, { once: true });
+    modalBg.addEventListener(
+      'transitionend',
+      function () {
+        modalBg.style.display = 'none';
+        enableScroll();
+      },
+      { once: true }
+    );
   }
   /*Extra*/
   clearQuery();
@@ -76,14 +76,14 @@ function closeModal(modalBg) {
 
 const modalBgs = document.getElementsByClassName('modalBg');
 for (let i = 0; i < modalBgs.length; i++) {
-  modalBgs[i].addEventListener('click', function(e) {
+  modalBgs[i].addEventListener('click', function (e) {
     if (!modalBgs[i].getElementsByClassName('modal')[0].contains(e.target)) {
       closeModal(modalBgs[i]);
     }
   });
 }
 
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') {
     const modalBgs = document.getElementsByClassName('modalBg');
     for (let i = 0; i < modalBgs.length; i++) {
@@ -105,171 +105,174 @@ function createTextSpan(text) {
 function isValidUrl(urlString) {
   try {
     return Boolean(new URL(urlString));
-  }
-  catch (e) {
+  } catch (e) {
     return false;
   }
 }
 
 function openRecipe(name) {
-  fetch(path + name + '.cook').then(async (response) => {
-    if (response.ok) {
-      return response.text();
-    } else {
-      throw await response.text();
-    }
-  }).then((data) => {
-    //add title
-    modal.getElementsByTagName('h2')[0].innerText = name;
-    //parse
-    const parsed = Recipe(data);
-    //add metadata
-    const table = modal.getElementsByTagName('table')[0];
-    while (table.firstChild) {
-      table.removeChild(table.firstChild);
-    }
-    if (parsed.metadata) {
-      table.style.display = 'block';
-      for (const metadata in parsed.metadata) {
-        const tr = document.createElement('tr');
-        const td1 = document.createElement('td');
-        td1.innerText = metadata;
-        tr.append(td1);
-        const td2 = document.createElement('td');
-        if (metadata.toLowerCase() === 'source' && isValidUrl(parsed.metadata[metadata])) {
-          const a = document.createElement('a');
-          a.target = '_blank';
-          a.rel = 'noopener';
-          a.innerText = parsed.metadata[metadata];
-          a.href = parsed.metadata[metadata];
-          td2.append(a);
+  fetch(path + name + '.cook')
+    .then(async response => {
+      if (response.ok) {
+        return response.text();
+      } else {
+        throw await response.text();
+      }
+    })
+    .then(data => {
+      //add title
+      modal.getElementsByTagName('h2')[0].innerText = name;
+      //parse
+      const parsed = Recipe(data);
+      //add metadata
+      const table = modal.getElementsByTagName('table')[0];
+      while (table.firstChild) {
+        table.removeChild(table.firstChild);
+      }
+      if (parsed.metadata) {
+        table.style.display = 'block';
+        for (const metadata in parsed.metadata) {
+          const tr = document.createElement('tr');
+          const td1 = document.createElement('td');
+          td1.innerText = metadata;
+          tr.append(td1);
+          const td2 = document.createElement('td');
+          if (metadata.toLowerCase() === 'source' && isValidUrl(parsed.metadata[metadata])) {
+            const a = document.createElement('a');
+            a.target = '_blank';
+            a.rel = 'noopener';
+            a.innerText = parsed.metadata[metadata];
+            a.href = parsed.metadata[metadata];
+            td2.append(a);
+          } else {
+            td2.innerText = parsed.metadata[metadata];
+          }
+          tr.append(td2);
+          table.append(tr);
+        }
+      } else {
+        table.style.display = 'none';
+      }
+      const ingedientCookware = modal.getElementsByClassName('ingedientCookware')[0];
+      const ul1 = modal.getElementsByTagName('ul')[0];
+      while (ul1.firstChild) {
+        ul1.removeChild(ul1.firstChild);
+      }
+      const ul2 = modal.getElementsByTagName('ul')[1];
+      while (ul2.firstChild) {
+        ul2.removeChild(ul2.firstChild);
+      }
+      if (parsed.ingredients || parsed.cookware) {
+        ingedientCookware.style.display = 'flex';
+        //add ingredients
+        if (parsed.ingredients) {
+          ul1.style.display = 'block';
+          for (const ingredient of parsed.ingredients) {
+            const li = document.createElement('li');
+            li.classList.add('smallInputBox');
+            const input = document.createElement('input');
+            input.type = 'checkbox';
+            input.id = ingredient.name.replaceAll(' ', '');
+            li.append(input);
+            const label = document.createElement('label');
+            label.htmlFor = ingredient.name.replaceAll(' ', '');
+            if (ingredient.quantity) {
+              const span = document.createElement('span');
+              span.classList.add('amount');
+              span.innerText = ingredient.quantity + ' ' + ingredient.units;
+              label.append(span);
+              label.append(createTextSpan(' '));
+            }
+            label.append(createTextSpan(ingredient.name));
+            li.append(label);
+            ul1.append(li);
+          }
         } else {
-          td2.innerText = parsed.metadata[metadata];
+          ul1.style.display = 'none';
         }
-        tr.append(td2);
-        table.append(tr);
-      }
-    } else {
-      table.style.display = 'none';
-    }
-    const ingedientCookware = modal.getElementsByClassName('ingedientCookware')[0];
-    const ul1 = modal.getElementsByTagName('ul')[0];
-    while (ul1.firstChild) {
-      ul1.removeChild(ul1.firstChild);
-    }
-    const ul2 = modal.getElementsByTagName('ul')[1];
-    while (ul2.firstChild) {
-      ul2.removeChild(ul2.firstChild);
-    }
-    if (parsed.ingredients || parsed.cookware) {
-      ingedientCookware.style.display = 'flex';
-      //add ingredients
-      if (parsed.ingredients) {
-        ul1.style.display = 'block';
-        for (const ingredient of parsed.ingredients) {
-          const li = document.createElement('li');
-          li.classList.add('smallInputBox');
-          const input = document.createElement('input');
-          input.type = 'checkbox';
-          input.id = ingredient.name.replaceAll(' ', '');
-          li.append(input);
-          const label = document.createElement('label');
-          label.htmlFor = ingredient.name.replaceAll(' ', '');
-          if (ingredient.quantity) {
-            const span = document.createElement('span');
-            span.classList.add('amount');
-            span.innerText = ingredient.quantity + ' ' + ingredient.units;
-            label.append(span);
-            label.append(createTextSpan(' '));
+        //add cookware
+        if (parsed.cookware) {
+          ul2.style.display = 'block';
+          for (const cookware of parsed.cookware) {
+            const li = document.createElement('li');
+            if (cookware.quantity) {
+              const span = document.createElement('span');
+              span.classList.add('amount');
+              span.innerText = cookware.quantity;
+              li.append(span);
+              li.append(createTextSpan(' '));
+            }
+            li.append(createTextSpan(cookware.name));
+            ul2.append(li);
           }
-          label.append(createTextSpan(ingredient.name));
-          li.append(label);
-          ul1.append(li);
+        } else {
+          ul2.style.display = 'none';
         }
       } else {
-        ul1.style.display = 'none';
+        ingedientCookware.style.display = 'none';
       }
-      //add cookware
-      if (parsed.cookware) {
-        ul2.style.display = 'block';
-        for (const cookware of parsed.cookware) {
+      //add steps
+      const ol = modal.getElementsByTagName('ol')[0];
+      while (ol.firstChild) {
+        ol.removeChild(ol.firstChild);
+      }
+      if (parsed.steps) {
+        ol.style.display = 'block';
+        for (const step of parsed.steps) {
           const li = document.createElement('li');
-          if (cookware.quantity) {
-            const span = document.createElement('span');
-            span.classList.add('amount');
-            span.innerText = cookware.quantity;
-            li.append(span);
-            li.append(createTextSpan(' '));
+          for (const subStep of step) {
+            if (subStep.type === 'text') {
+              li.append(createTextSpan(subStep.value));
+            } else if (subStep.type === 'ingredient') {
+              const span = document.createElement('span');
+              span.classList.add('ingredient');
+              span.innerText = subStep.name;
+              if (subStep.quantity) {
+                span.title = subStep.quantity + ' ' + subStep.units;
+              }
+              li.append(span);
+            } else if (subStep.type === 'cookware') {
+              const span = document.createElement('span');
+              span.classList.add('cookware');
+              span.innerText = subStep.name;
+              if (subStep.quantity) {
+                span.title = subStep.quantity;
+              }
+              li.append(span);
+            } else if (subStep.type === 'timer') {
+              const span = document.createElement('span');
+              span.classList.add('timer');
+              span.innerText = subStep.quantity;
+              if (subStep.units) {
+                span.innerText += ' ' + subStep.units;
+              }
+              if (subStep.name) {
+                span.title = subStep.name;
+              }
+              li.append(span);
+            }
           }
-          li.append(createTextSpan(cookware.name));
-          ul2.append(li);
+          ol.append(li);
         }
       } else {
-        ul2.style.display = 'none';
+        ol.style.display = 'none';
       }
-    } else {
-      ingedientCookware.style.display = 'none';
-    }
-    //add steps
-    const ol = modal.getElementsByTagName('ol')[0];
-    while (ol.firstChild) {
-      ol.removeChild(ol.firstChild);
-    }
-    if (parsed.steps) {
-      ol.style.display = 'block';
-      for (const step of parsed.steps) {
-        const li = document.createElement('li');
-        for (const subStep of step) {
-          if (subStep.type === 'text') {
-            li.append(createTextSpan(subStep.value));
-          } else if (subStep.type === 'ingredient') {
-            const span = document.createElement('span');
-            span.classList.add('ingredient');
-            span.innerText = subStep.name;
-            if (subStep.quantity) {
-              span.title = subStep.quantity + ' ' + subStep.units;
-            }
-            li.append(span);
-          } else if (subStep.type === 'cookware') {
-            const span = document.createElement('span');
-            span.classList.add('cookware');
-            span.innerText = subStep.name;
-            if (subStep.quantity) {
-              span.title = subStep.quantity;
-            }
-            li.append(span);
-          } else if (subStep.type === 'timer') {
-            const span = document.createElement('span');
-            span.classList.add('timer');
-            span.innerText = subStep.quantity;
-            if (subStep.units) {
-              span.innerText += ' ' + subStep.units;
-            }
-            if (subStep.name) {
-              span.title = subStep.name;
-            }
-            li.append(span);
-          }
-        }
-        ol.append(li);
-      }
-    } else {
-      ol.style.display = 'none';
-    }
-    //show modal
-    openModal(modal);
-  });
+      //show modal
+      openModal(modal);
+    });
 }
-
-
 
 /* Masonry */
 
 const recipes = document.getElementsByClassName('item');
 for (let i = 0; i < recipes.length; i++) {
   resizeMasonryItem(recipes[i]);
-  recipes[i].addEventListener('click', function() {
-    window.history.replaceState('', document.title, window.location.toString() + '?item=' + recipes[i].innerText);
+  recipes[i].addEventListener('click', function () {
+    window.history.replaceState(
+      '',
+      document.title,
+      window.location.toString() + '?item=' + recipes[i].innerText
+    );
     openRecipe(recipes[i].innerText);
   });
 }
@@ -278,18 +281,19 @@ function resizeMasonryItem(item) {
   const masonry = document.getElementsByTagName('main')[0];
   const rowHeight = parseInt(window.getComputedStyle(masonry).getPropertyValue('grid-auto-rows'));
   const rowGap = parseInt(window.getComputedStyle(masonry).getPropertyValue('grid-row-gap'));
-  const rowSpan = Math.ceil((item.getElementsByClassName('content')[0].getBoundingClientRect().height + rowGap) / (rowHeight + rowGap));
+  const rowSpan = Math.ceil(
+    (item.getElementsByClassName('content')[0].getBoundingClientRect().height + rowGap) /
+      (rowHeight + rowGap)
+  );
   item.style.gridRowEnd = 'span ' + rowSpan;
 }
 
-window.addEventListener('resize', function() {
+window.addEventListener('resize', function () {
   const items = document.getElementsByClassName('item');
   for (let i = 0; i < items.length; i++) {
     resizeMasonryItem(items[i]);
   }
 });
-
-
 
 /* Query paramaters */
 
@@ -302,8 +306,6 @@ if (params && params.has('item')) {
   }
 }
 
-
-
 /* Items */
 
 class Item {
@@ -311,20 +313,18 @@ class Item {
     this.item = item;
   }
   hide() {
-    this.item.style.display = "none";
+    this.item.style.display = 'none';
   }
   show() {
-    this.item.style.display = "flex";
+    this.item.style.display = 'flex';
   }
 }
 
-const itemElements = document.getElementsByClassName("item");
+const itemElements = document.getElementsByClassName('item');
 const items = [];
 for (let i = 0; i < itemElements.length; i++) {
   items.push(new Item(itemElements[i]));
 }
-
-
 
 /* Filter */
 
@@ -333,28 +333,28 @@ class Filter {
     this.filter = filter;
   }
   hide() {
-    if (!this.filter.classList.contains("remove")) {
+    if (!this.filter.classList.contains('remove')) {
       transitioning = true;
-      this.filter.style.maxWidth = this.filter.getBoundingClientRect().width + "px";
+      this.filter.style.maxWidth = this.filter.getBoundingClientRect().width + 'px';
       setTimeout(() => {
-        this.filter.classList.add("remove");
+        this.filter.classList.add('remove');
         this.filter.style.maxWidth = 0;
         onTransitionEnd(this.filter, () => {
-          this.filter.style.display = "none";
+          this.filter.style.display = 'none';
           transitioning = false;
         });
       });
     }
   }
   show() {
-    if (this.filter.classList.contains("remove")) {
+    if (this.filter.classList.contains('remove')) {
       transitioning = true;
-      this.filter.style.display = "inline-block";
+      this.filter.style.display = 'inline-block';
       setTimeout(() => {
-        this.filter.style.maxWidth = "200px";
-        this.filter.classList.remove("remove");
+        this.filter.style.maxWidth = '200px';
+        this.filter.classList.remove('remove');
         onTransitionEnd(this.filter, () => {
-          this.filter.style.maxWidth = "";
+          this.filter.style.maxWidth = '';
           transitioning = false;
         });
       });
@@ -362,11 +362,11 @@ class Filter {
   }
 }
 
-const filterButtons = document.getElementsByClassName("filterButton");
+const filterButtons = document.getElementsByClassName('filterButton');
 const filters = {};
 for (let i = 0; i < filterButtons.length; i++) {
   filters[filterButtons[i].id] = new Filter(filterButtons[i]);
-  filterButtons[i].addEventListener("click", () => {
+  filterButtons[i].addEventListener('click', () => {
     if (!transitioning) {
       openFilter(filterButtons[i]);
     }
@@ -374,45 +374,53 @@ for (let i = 0; i < filterButtons.length; i++) {
 }
 
 function openFilter(filter) {
-  if (!filter.classList.contains("filtered")) { //Not already clicked
-    filter.classList.add("filtered");
+  if (!filter.classList.contains('filtered')) {
+    //Not already clicked
+    filter.classList.add('filtered');
     for (let i = 0; i < filterButtons.length; i++) {
-      if (filterButtons[i].classList.contains("filtered") || filterButtons[i].classList.contains(filter.id)) { //Show subfilters others
+      if (
+        filterButtons[i].classList.contains('filtered') ||
+        filterButtons[i].classList.contains(filter.id)
+      ) {
+        //Show subfilters others
         filters[filterButtons[i].id].show();
       }
     }
-    for (let i = 0; i < items.length; i++) { //Hide rectangles
+    for (let i = 0; i < items.length; i++) {
+      //Hide rectangles
       if (!items[i].item.classList.contains(filter.id)) {
         items[i].hide();
       }
     }
-    const clearFilter = document.getElementById("clearFilter"); //Show clear filter button
-    clearFilter.style.display = "flex";
+    const clearFilter = document.getElementById('clearFilter'); //Show clear filter button
+    clearFilter.style.display = 'flex';
     setTimeout(() => {
-      clearFilter.classList.add("show");
+      clearFilter.classList.add('show');
     });
   }
 }
 
 //Close filters
-document.getElementById("clearFilter").addEventListener("click", function() {
+document.getElementById('clearFilter').addEventListener('click', function () {
   if (!transitioning) {
     clearQuery();
-    this.classList.remove("show"); //Hide self
-    this.style.display = "none";
+    this.classList.remove('show'); //Hide self
+    this.style.display = 'none';
 
-    for (let i = 0; i < filterButtons.length; i++) { //Show all buttons except subfilters
-      if (!filterButtons[i].classList.contains("subfilter")) {
+    for (let i = 0; i < filterButtons.length; i++) {
+      //Show all buttons except subfilters
+      if (!filterButtons[i].classList.contains('subfilter')) {
         filters[filterButtons[i].id].show();
       } else {
         filters[filterButtons[i].id].hide();
       }
     }
-    for (let i = 0; i < items.length; i++) { //Show all rectangles
+    for (let i = 0; i < items.length; i++) {
+      //Show all rectangles
       items[i].show();
     }
-    while (document.getElementsByClassName("filtered")[0]) {
-      document.getElementsByClassName("filtered")[0].classList.remove("filtered");
+    while (document.getElementsByClassName('filtered')[0]) {
+      document.getElementsByClassName('filtered')[0].classList.remove('filtered');
     }
   }
 });
