@@ -112,12 +112,11 @@ function isValidUrl(urlString) {
 
 function openRecipe(name) {
   fetch(path + name + '.cook')
-    .then(async response => {
-      if (response.ok) {
-        return response.text();
-      } else {
-        throw await response.text();
+    .then(response => {
+      if (!response.ok) {
+        throw response.statusText;
       }
+      return response.text();
     })
     .then(data => {
       //add title
@@ -259,6 +258,9 @@ function openRecipe(name) {
       }
       //show modal
       openModal(modal);
+    })
+    .catch(error => {
+      console.error('Error fetching recipe:', error);
     });
 }
 
