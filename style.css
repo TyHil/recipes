@@ -416,8 +416,8 @@ body {
   display: flex;
   flex-direction: column;
 }
-main {
-  margin-bottom: auto;
+footer {
+  margin-top: auto;
 }
 
 /* STYLES */
