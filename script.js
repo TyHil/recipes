@@ -4,7 +4,7 @@ import { Recipe } from '/recipes/js/parse.js'; // /recipes/js/parse.js
 /* Tab Icon */
 
 if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-  document.querySelector('link[rel="icon"]').href = 'recipes/tabicon-light.png';
+  document.querySelector('link[rel="icon"]').href = '/recipes/tabicon-light.png';
 }
 
 /* Transition Management */
@@ -39,46 +39,13 @@ function clearQuery() {
   );
 }
 
-/* Modal */
-
-function disableScroll() {
-  document.body.style.marginRight = window.innerWidth - document.documentElement.clientWidth + 'px';
-  document.body.classList.add('disableScroll');
-}
-
-function enableScroll() {
-  document.body.style.marginRight = 0;
-  document.body.classList.remove('disableScroll');
-}
-
-function openModal(modalBg) {
-  modalBg.style.display = 'block';
-  modalBg.getElementsByClassName('modal')[0].scrollTop = 0;
-  disableScroll();
-  modalBg.classList.remove('out');
-}
-
-function closeModal(modalBg) {
-  if (!modalBg.classList.contains('out')) {
-    modalBg.classList.add('out');
-    modalBg.addEventListener(
-      'transitionend',
-      function () {
-        modalBg.style.display = 'none';
-        enableScroll();
-      },
-      { once: true }
-    );
-  }
-  /*Extra*/
-  clearQuery();
-}
+/* Modal Extra */
 
 const modalBgs = document.getElementsByClassName('modalBg');
 for (let i = 0; i < modalBgs.length; i++) {
   modalBgs[i].addEventListener('click', function (e) {
     if (!modalBgs[i].getElementsByClassName('modal')[0].contains(e.target)) {
-      closeModal(modalBgs[i]);
+      clearQuery();
     }
   });
 }
@@ -87,12 +54,10 @@ document.addEventListener('keydown', function (e) {
   if (e.key === 'Escape') {
     const modalBgs = document.getElementsByClassName('modalBg');
     for (let i = 0; i < modalBgs.length; i++) {
-      closeModal(modalBgs[i]);
+      clearQuery();
     }
   }
 });
-
-/*Extra*/
 
 const modal = document.getElementsByClassName('modalBg')[0];
 
