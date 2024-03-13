@@ -1,5 +1,5 @@
-import { commentRegex, tokenRegex } from "/recipes/js/regex.js";///recipes/js/regex.js
-import { text, ingredient, cookware, timer, } from "/recipes/js/token.js";///recipes/js/token.js
+import { commentRegex, tokenRegex } from "/recipes/js/regex.js";// /recipes/js/regex.js
+import { text, ingredient, cookware, timer, } from "/recipes/js/token.js";// /recipes/js/token.js
 const parseQuantity = (quantity, fallback) => {
     if (quantity.includes("/")) {
         const [a, b] = quantity.split("/", 2);
