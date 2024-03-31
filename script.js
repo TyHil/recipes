@@ -332,7 +332,7 @@ class Filter {
 const filterButtons = document.getElementsByClassName('filterButton');
 const filters = {};
 for (let i = 0; i < filterButtons.length; i++) {
-  filters[filterButtons[i].id] = new Filter(filterButtons[i]);
+  filters[filterButtons[i].dataset.filter] = new Filter(filterButtons[i]);
   filterButtons[i].addEventListener('click', () => {
     if (!transitioning) {
       openFilter(filterButtons[i]);
@@ -347,15 +347,15 @@ function openFilter(filter) {
     for (let i = 0; i < filterButtons.length; i++) {
       if (
         filterButtons[i].classList.contains('filtered') ||
-        filterButtons[i].classList.contains(filter.id)
+        filterButtons[i].dataset.parent === filter.dataset.filter
       ) {
         //Show subfilters others
-        filters[filterButtons[i].id].show();
+        filters[filterButtons[i].dataset.filter].show();
       }
     }
     for (let i = 0; i < items.length; i++) {
       //Hide rectangles
-      if (!items[i].item.classList.contains(filter.id)) {
+      if (!items[i].item.dataset?.filters?.split(' ')?.includes(filter.dataset.filter)) {
         items[i].hide();
       }
     }
@@ -377,9 +377,9 @@ document.getElementById('clearFilter').addEventListener('click', function () {
     for (let i = 0; i < filterButtons.length; i++) {
       //Show all buttons except subfilters
       if (!filterButtons[i].classList.contains('subfilter')) {
-        filters[filterButtons[i].id].show();
+        filters[filterButtons[i].dataset.filter].show();
       } else {
-        filters[filterButtons[i].id].hide();
+        filters[filterButtons[i].dataset.filter].hide();
       }
     }
     for (let i = 0; i < items.length; i++) {
