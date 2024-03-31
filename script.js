@@ -355,7 +355,10 @@ function openFilter(filter) {
     }
     for (let i = 0; i < items.length; i++) {
       //Hide rectangles
-      if (!items[i].item.dataset?.filters?.split(' ')?.includes(filter.dataset.filter)) {
+      if (
+        'filters' in items[i].item.dataset &&
+        !items[i].item.dataset.filters.split(' ').includes(filter.dataset.filter)
+      ) {
         items[i].hide();
       }
     }
