@@ -75,8 +75,8 @@ function isValidUrl(urlString) {
   }
 }
 
-function openRecipe(name) {
-  fetch(path + name + '.cook')
+function openRecipe(recipe) {
+  fetch(path + recipe.dataset.file + '.cook')
     .then(response => {
       if (!response.ok) {
         throw response.statusText;
@@ -85,7 +85,19 @@ function openRecipe(name) {
     })
     .then(data => {
       //add title
-      modal.getElementsByTagName('h2')[0].innerText = name;
+      modal.getElementsByTagName('h2')[0].innerText = recipe.innerText;
+      //filters
+      const filtersDiv = modal.getElementsByClassName('modalFilters')[0];
+      while (filtersDiv.firstChild) {
+        filtersDiv.removeChild(filtersDiv.firstChild);
+      }
+      const filterList = recipe.dataset.filters.split(' ');
+      for (let i = 0; i < filterList.length; i++) {
+        const filterButton = document.createElement('button');
+        filterButton.classList.add('large');
+        filterButton.innerText = filters[filterList[i]].filter.innerText;
+        filtersDiv.append(filterButton);
+      }
       //parse
       const parsed = Recipe(data);
       //add metadata
@@ -238,9 +250,9 @@ for (let i = 0; i < recipes.length; i++) {
     window.history.replaceState(
       '',
       document.title,
-      window.location.toString() + '?item=' + recipes[i].innerText
+      window.location.toString() + '?item=' + recipes[i].dataset.file
     );
-    openRecipe(recipes[i].innerText);
+    openRecipe(recipes[i]);
   });
 }
 
@@ -267,8 +279,8 @@ window.addEventListener('resize', function () {
 const params = new URLSearchParams(window.location.search);
 if (params && params.has('item')) {
   for (let i = 0; i < recipes.length; i++) {
-    if (recipes[i].innerText === params.get('item')) {
-      openRecipe(params.get('item'));
+    if (recipes[i].dataset.file === params.get('item')) {
+      openRecipe(recipes[i]);
     }
   }
 }
@@ -353,13 +365,15 @@ function openFilter(filter) {
         filters[filterButtons[i].dataset.filter].show();
       }
     }
-    for (let i = 0; i < items.length; i++) {
-      //Hide rectangles
-      if (
-        'filters' in items[i].item.dataset &&
-        !items[i].item.dataset.filters.split(' ').includes(filter.dataset.filter)
-      ) {
-        items[i].hide();
+    if (!filter.classList.contains('category')) {
+      for (let i = 0; i < items.length; i++) {
+        //Hide rectangles
+        if (
+          'filters' in items[i].item.dataset &&
+          !items[i].item.dataset.filters.split(' ').includes(filter.dataset.filter)
+        ) {
+          items[i].hide();
+        }
       }
     }
     const clearFilter = document.getElementById('clearFilter'); //Show clear filter button

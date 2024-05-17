@@ -2,6 +2,13 @@
 
 /* Modal Extra */
 
+.modalFilters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 table a {
   word-break: break-all;
 }
@@ -100,7 +107,7 @@ button.item {
 
 /* Filters */
 
-#projects {
+.filters {
   display: flex;
   align-items: center;
   flex-wrap: wrap;

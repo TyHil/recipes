@@ -42,6 +42,7 @@
     <div class="modalBg out">
       <div class="modal">
         <h2></h2>
+        <div class="modalFilters"></div>
         <table></table>
         <div class="ingedientCookware">
           <fieldset>
@@ -63,12 +64,12 @@
       <a id="byLine" href="/">Tyler Gordon Hill</a>
     </header>
 
-    <div id="projects">
+    <div class="filters">
       <button
         data-filter="type"
         data-children="dessert entree side appetizer"
         title="Filter by type"
-        class="large filter transitionDisabled filterButton"
+        class="large filter transitionDisabled filterButton category"
         >Type</button
       >
       <button
@@ -111,7 +112,7 @@
         data-filter="difficulty"
         data-children="easy medium hard"
         title="Filter by difficulty"
-        class="large filter transitionDisabled filterButton"
+        class="large filter transitionDisabled filterButton category"
         >Difficulty</button
       >
       <button
@@ -141,122 +142,122 @@
     </div>
 
     <main>
-      <button class="large item" data-filters="type difficulty easy">
+      <button class="large item" data-file="french_press_coffee" data-filters="easy">
         <div class="content">
           <h3>French Press Coffee</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty side hard">
+      <button class="large item" data-file="stuffing" data-filters="side hard">
         <div class="content">
           <h3>Stuffing</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty dessert hard">
+      <button class="large item" data-file="pecan_bars" data-filters="dessert hard">
         <div class="content">
           <h3>Pecan Bars</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty dessert medium">
+      <button class="large item" data-file="brownies" data-filters="dessert medium">
         <div class="content">
           <h3>Brownies</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty dessert lemon medium">
+      <button class="large item" data-file="lemon_poppyseed_muffins" data-filters="dessert lemon medium">
         <div class="content">
           <h3>Lemon Poppyseed Muffins</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty dessert easy">
+      <button class="large item" data-file="ginger_cookies" data-filters="dessert easy">
         <div class="content">
           <h3>Ginger Cookies</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty dessert lemon medium">
+      <button class="large item" data-file="lemon_pound_cake" data-filters="dessert lemon medium">
         <div class="content">
           <h3>Lemon Pound Cake</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty dessert medium">
+      <button class="large item" data-file="pumpkin_muffins" data-filters="dessert medium">
         <div class="content">
           <h3>Pumpkin Muffins</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty entree easy">
+      <button class="large item" data-file="tomato_soup" data-filters="entree easy">
         <div class="content">
           <h3>Tomato Soup</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty entree easy">
+      <button class="large item" data-file="chicken_breasts" data-filters="entree easy">
         <div class="content">
           <h3>Chicken Breasts</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty dessert hard">
+      <button class="large item" data-file="strawberry_bundt_cake" data-filters="dessert hard">
         <div class="content">
           <h3>Strawberry Bundt Cake</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty dessert lemon hard">
+      <button class="large item" data-file="lemon_bundt_cake" data-filters="dessert lemon hard">
         <div class="content">
           <h3>Lemon Bundt Cake</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty side easy">
+      <button class="large item" data-file="roasted_potatoes" data-filters="side easy">
         <div class="content">
           <h3>Roasted Potatoes</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty side hard">
+      <button class="large item" data-file="green_bean_casserole" data-filters="side hard">
         <div class="content">
           <h3>Green Bean Casserole</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty entree medium">
+      <button class="large item" data-file="braised_white_beans" data-filters="entree medium">
         <div class="content">
           <h3>Creamy Braised White Beans</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty entree easy">
+      <button class="large item" data-file="sheet-pan_sausage" data-filters="entree easy">
         <div class="content">
           <h3>Sheet-Pan Sausage With Peppers and Tomatoes</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty appetizer medium">
+      <button class="large item" data-file="buffalo_chicken_dip" data-filters="appetizer medium">
         <div class="content">
           <h3>Buffalo Chicken Dip</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty dessert easy">
+      <button class="large item" data-file="chocolate_chip_cookies" data-filters="dessert easy">
         <div class="content">
           <h3>Chocolate Chip Cookies</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty side easy">
+      <button class="large item" data-file="oven_bacon" data-filters="side easy">
         <div class="content">
           <h3>Oven Bacon</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty entree easy">
+      <button class="large item" data-file="omelette" data-filters="entree easy">
         <div class="content">
           <h3>Omelette</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty entree medium">
+      <button class="large item" data-file="sesame_chicken" data-filters="entree medium">
         <div class="content">
           <h3>Sesame Chicken</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty entree easy">
+      <button class="large item" data-file="meatballs" data-filters="entree easy">
         <div class="content">
           <h3>Meatballs</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty entree easy">
+      <button class="large item" data-file="chile" data-filters="entree easy">
         <div class="content">
           <h3>Chile</h3>
         </div>
       </button>
-      <button class="large item" data-filters="type difficulty dessert lemon easy">
+      <button class="large item" data-file="lemon_smoothie" data-filters="dessert lemon easy">
         <div class="content">
           <h3>Lemon Smoothie</h3>
         </div>
