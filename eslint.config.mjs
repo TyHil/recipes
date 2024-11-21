@@ -1,26 +1,12 @@
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
-import js from '@eslint/js';
-import { FlatCompat } from '@eslint/eslintrc';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-  baseDirectory: __dirname,
-  recommendedConfig: js.configs.recommended,
-  allConfig: js.configs.all
-});
+import eslintConfigPrettier from 'eslint-config-prettier';
 
 export default [
   {
-    ignores: ['js/parse.js', 'js/regex.js', 'js/token.js']
-  },
-  ...compat.extends('prettier'),
-  {
+    ignores: ['js/parse.js', 'js/regex.js', 'js/token.js'],
     languageOptions: {
-      globals: {},
-      ecmaVersion: 5,
+      ecmaVersion: 6,
       sourceType: 'module'
     }
-  }
+  },
+  eslintConfigPrettier
 ];
