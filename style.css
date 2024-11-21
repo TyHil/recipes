@@ -95,6 +95,7 @@ button.item {
   justify-content: center;
   line-height: unset;
   grid-row-end: span 7;
+  height: fit-content;
 }
 .content {
   padding: 1rem;
