@@ -204,7 +204,7 @@ function openRecipe(recipe) {
               span.classList.add('ingredient');
               span.innerText = subStep.name;
               if (subStep.quantity) {
-                span.title = subStep.quantity + ' ' + subStep.units;
+                span.title = (subStep.quantity + ' ' + subStep.units).trim();
               }
               li.append(span);
             } else if (subStep.type === 'cookware') {
@@ -212,7 +212,7 @@ function openRecipe(recipe) {
               span.classList.add('cookware');
               span.innerText = subStep.name;
               if (subStep.quantity) {
-                span.title = subStep.quantity;
+                span.title = subStep.quantity.trim();
               }
               li.append(span);
             } else if (subStep.type === 'timer') {
@@ -223,7 +223,7 @@ function openRecipe(recipe) {
                 span.innerText += ' ' + subStep.units;
               }
               if (subStep.name) {
-                span.title = subStep.name;
+                span.title = subStep.name.trim();
               }
               li.append(span);
             }

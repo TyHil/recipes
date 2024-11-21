@@ -19,7 +19,7 @@ export const parse = (source) => {
     const steps = [];
     const metadata = {};
     const sourceWithoutComments = source.replace(commentRegex, "");
-    const lines = sourceWithoutComments.split(/\r?\n|\r/); ///had the change to splin on more than just \n
+    const lines = sourceWithoutComments.split(/\r?\n|\r/); ///had to change to split on only \r
     for (const line of lines) {
         const step = [];
         let position = 0;
